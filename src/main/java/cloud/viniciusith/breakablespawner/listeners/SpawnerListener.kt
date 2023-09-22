@@ -8,6 +8,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.inventory.ItemStack
 
 
@@ -35,5 +36,22 @@ class SpawnerListener(plugin: BreakableSpawner) : Listener {
         val spawnerItemStack: ItemStack = BSUtils.newSpawnerItem(entityName)
 
         player.world.dropItemNaturally(block.location, spawnerItemStack)
+    }
+
+    @EventHandler
+    fun onSpawnerPlace(event: BlockPlaceEvent) {
+        val block: Block = event.blockPlaced
+        val player: Player = event.player
+        val item: ItemStack = player.inventory.itemInMainHand
+
+        if (event.isCancelled || block.type.name !== Material.SPAWNER.name || item.type.name !== Material.SPAWNER.name) return
+
+        val entityId = BSUtils.getStoredEntity(item)
+
+        if (entityId.isNullOrEmpty()) return
+
+        println("the entity is $entityId")
+
+        BSUtils.setSpawnerEntity(block, entityId)
     }
 }

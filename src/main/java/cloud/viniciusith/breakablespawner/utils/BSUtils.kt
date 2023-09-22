@@ -7,6 +7,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.block.Block
 import org.bukkit.block.CreatureSpawner
+import org.bukkit.entity.EntityType
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
@@ -52,6 +53,37 @@ object BSUtils {
         }
 
         return null
+    }
+
+    fun setSpawnerEntity(block: Block, entityId: String) {
+        val blockState = block.state
+        if (blockState !is CreatureSpawner) return
+
+        var entity: EntityType? = null
+
+        EntityType.entries.toTypedArray().forEach {
+            if (it.name == mobIdToName(entityId).uppercase()) entity = it
+            else println("Failed to find entity with id '$entityId'")
+        }
+
+        blockState.spawnedType = entity
+        blockState.update(true)
+    }
+
+    fun getStoredEntity(itemStack: ItemStack): String? {
+        val entityKey = NamespacedKey(BreakableSpawner.PLUGIN_NAME, "entity_id")
+        val data = itemStack.itemMeta.persistentDataContainer
+
+        if (data.has(entityKey, PersistentDataType.STRING)) {
+            println(data.get(entityKey, PersistentDataType.STRING))
+            return data.get(entityKey, PersistentDataType.STRING)
+        }
+
+        return null
+    }
+
+    fun mobIdToName(entityId: String): String {
+        return entityId.substringAfter(':')
     }
 
     fun nameToMobId(entityName: String): String {
