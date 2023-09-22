@@ -3,7 +3,6 @@ package cloud.viniciusith.breakablespawner.listeners
 import cloud.viniciusith.breakablespawner.BreakableSpawner
 import cloud.viniciusith.breakablespawner.utils.BSUtils
 import org.bukkit.Material
-import org.bukkit.World
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -32,9 +31,6 @@ class SpawnerListener(plugin: BreakableSpawner) : Listener {
         if (entityName.isNullOrEmpty()) return
 
         this.plugin.logger.fine("block stored entity = ${BSUtils.nameToMobId(entityName)}")
-
-//        TODO: Know whether player used silk or not
-//        TODO: Set exp to 0 to prevent xp farm if player has already mined (item has mined metadata)
 
         val spawnerItemStack: ItemStack = BSUtils.newSpawnerItem(entityName)
 
