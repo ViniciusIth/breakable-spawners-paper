@@ -1,0 +1,8 @@
+name: breakableSpawner
+version: '${version}'
+main: cloud.viniciusith.breakablespawner.BreakableSpawner
+api-version: '1.20'
+prefix: bspawner
+authors: [ViniciusIth]
+description: Allows for silk touch items to break spawners
+website: breakablespawner.viniciusith.cloud
