@@ -9,6 +9,7 @@ import org.bukkit.block.Block
 import org.bukkit.block.CreatureSpawner
 import org.bukkit.entity.EntityType
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.PlayerInventory
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 
@@ -63,8 +64,9 @@ object BSUtils {
 
         EntityType.entries.toTypedArray().forEach {
             if (it.name == mobIdToName(entityId).uppercase()) entity = it
-            else println("Failed to find entity with id '$entityId'")
         }
+
+//        TODO: Check if entity is null
 
         blockState.spawnedType = entity
         blockState.update(true)
@@ -88,5 +90,10 @@ object BSUtils {
 
     fun nameToMobId(entityName: String): String {
         return "minecraft:${entityName}"
+    }
+
+    fun getSpawnerFromHand(inventory: PlayerInventory): ItemStack {
+        if (inventory.itemInMainHand.type.name === Material.SPAWNER.name) return inventory.itemInMainHand
+        return inventory.itemInOffHand
     }
 }

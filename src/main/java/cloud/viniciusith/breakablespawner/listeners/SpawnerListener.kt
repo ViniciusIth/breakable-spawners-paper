@@ -42,15 +42,15 @@ class SpawnerListener(plugin: BreakableSpawner) : Listener {
     fun onSpawnerPlace(event: BlockPlaceEvent) {
         val block: Block = event.blockPlaced
         val player: Player = event.player
-        val item: ItemStack = player.inventory.itemInMainHand
+        val item: ItemStack = BSUtils.getSpawnerFromHand(player.inventory)
 
-        if (event.isCancelled || block.type.name !== Material.SPAWNER.name || item.type.name !== Material.SPAWNER.name) return
+        if (event.isCancelled || block.type.name !== Material.SPAWNER.name) return
 
         val entityId = BSUtils.getStoredEntity(item)
 
         if (entityId.isNullOrEmpty()) return
 
-        println("the entity is $entityId")
+        this.plugin.logger.fine("Setting spawner entity to $entityId")
 
         BSUtils.setSpawnerEntity(block, entityId)
     }
