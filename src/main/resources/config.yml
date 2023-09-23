@@ -1,0 +1,7 @@
+allowedTools:
+  - IRON_PICKAXE
+  - GOLD_PICKAXE
+  - DIAMOND_PICKAXE
+  - NETHERITE_PICKAXE
+silkRequired: true
+spawnerDropChance: 100

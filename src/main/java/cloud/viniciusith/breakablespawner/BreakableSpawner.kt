@@ -5,6 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class BreakableSpawner : JavaPlugin() {
     override fun onEnable() {
+        saveDefaultConfig()
+
         server.pluginManager.registerEvents(SpawnerListener(this), this)
     }
 
