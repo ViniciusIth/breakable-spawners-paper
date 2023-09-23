@@ -7,6 +7,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.block.Block
 import org.bukkit.block.CreatureSpawner
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.EntityType
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
@@ -40,6 +41,15 @@ object BSUtils {
         item.setItemMeta(meta)
 
         return item
+    }
+
+    fun isBreakingToolValid(tool: ItemStack): Boolean {
+        val allowedTools = listOf("IRON_PICKAXE","GOLD_PICKAXE","DIAMOND_PICKAXE","NETHERITE_PICKAXE")
+
+        if (!allowedTools.contains(tool.type.name)) return false
+        if (!tool.containsEnchantment(Enchantment.SILK_TOUCH)) return false
+
+        return true
     }
 
     fun getSpawnerEntityName(block: Block, plugin: BreakableSpawner): String? {
