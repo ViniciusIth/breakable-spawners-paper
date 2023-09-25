@@ -43,11 +43,11 @@ object BSUtils {
         return item
     }
 
-    fun isBreakingToolValid(tool: ItemStack): Boolean {
-        val allowedTools = listOf("IRON_PICKAXE","GOLD_PICKAXE","DIAMOND_PICKAXE","NETHERITE_PICKAXE")
+    fun isBreakingToolValid(tool: ItemStack, plugin: BreakableSpawner): Boolean {
+        val allowedTools = plugin.config.getStringList("allowedTools")
 
         if (!allowedTools.contains(tool.type.name)) return false
-        if (!tool.containsEnchantment(Enchantment.SILK_TOUCH)) return false
+        if (!tool.containsEnchantment(Enchantment.SILK_TOUCH) && plugin.config.getBoolean("silkRequired")) return false
 
         return true
     }

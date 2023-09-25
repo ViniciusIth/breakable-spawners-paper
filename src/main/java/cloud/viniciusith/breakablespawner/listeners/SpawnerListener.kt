@@ -25,9 +25,10 @@ class SpawnerListener(plugin: BreakableSpawner) : Listener {
         val block: Block = event.block
         val player: Player = event.player
 
-        if (event.isCancelled || event.block.type.name !== Material.SPAWNER.name || !BSUtils.isBreakingToolValid(player.inventory.itemInMainHand)) return
+        if (event.isCancelled || event.block.type.name !== Material.SPAWNER.name || !BSUtils.isBreakingToolValid(player.inventory.itemInMainHand, plugin)) return
 
         val entityName = BSUtils.getSpawnerEntityName(block, this.plugin)
+
 
         if (entityName.isNullOrEmpty()) return
 
