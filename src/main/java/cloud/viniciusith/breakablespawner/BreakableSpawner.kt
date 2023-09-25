@@ -23,6 +23,6 @@ class BreakableSpawner : JavaPlugin() {
     }
 
     companion object {
-        const val PLUGIN_NAME = "bspawn"
+        const val PLUGIN_NAME = "bspawner"
     }
 }
